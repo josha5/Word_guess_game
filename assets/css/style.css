@@ -1,0 +1,24 @@
+header {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+body {
+    background-image: url(../images/gradientImage.jpg);
+    background-size: cover;
+    font-family: Georgia;
+}
+
+h1,h2,h3,h4,h5 {
+    color: white;
+}
+
+.letterBox {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    margin-right: 5px;
+    border-bottom: 2px solid black;
+}
