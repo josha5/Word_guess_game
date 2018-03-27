@@ -1,9 +1,11 @@
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 //console.log(alphabet);
 
-puzzleList = [
+puzzleList = [ "kitten" ];
+
+ /*puzzleList = [
 	"alphabet", "kitten", "blasphemy", "telephone", "sinkhole", "hammer", "technical", "banana", "elementary", "laptop", "excellent", "famous", "cheese", "actress", "landlord", "interest", "lipstick", "cardboard", "hungry", "inventory", "windblown", "attempt", "liquid", "tranquil", "effect", "alcohol", "strawberry", "clinic", "alchemy", "figure", "virtual", "melee", "gravity", "sugar", "piglet", "orange"
-];
+]; */
 
 const randomWord = function(puzzleList) {
     // Grabbing random from puzzleList
@@ -23,7 +25,7 @@ const puzzleWordMap = randomWord(puzzleList);
 // console.log(puzzleWordMap.length);
 const createLetterBoxes = function(wordLength) {
     let i = 0;
-    while(i <= wordLength) {
+    while(i < wordLength) {
         let letterBox = document.createElement("div");
         letterBox.className = "letterBox";
         document.querySelector("#hangManWord").appendChild(letterBox);
@@ -36,33 +38,42 @@ let selectedLetters = [];
 
 const checkGuessLetter = function(selectedLetters, puzzleWordMap) {
     console.log(selectedLetters, puzzleWordMap);
-    let correctAnswers = [],
-        incorrectAnswers = [];
-        // looping over selectedLetters array and checking puzzleMap indexOf each letter
+    let incorrectAnswers = [];
+    
+    // looping over selectedLetters array and checking puzzleMap indexOf each letter
     selectedLetters.forEach((letter, index, arr) => {
+        
         // if puzzleWordMap index of letter is not equal to -1 append paragraph tag.
         if(puzzleWordMap.indexOf(letter) !== -1) {
+            
             let correctLetter = document.createElement("p");
+            
+            correctLetter.className = 'text-center';
+            
             // setting the inner html of the p tag to the letter from the char code value.
             correctLetter.innerHTML = String.fromCharCode(arr[index]);
+            
             let letterPosition = puzzleWordMap.indexOf(letter);
+            
             // convert all boxes with the class of letter box to an array.
             let letterBoxArray = Array.from(document.querySelectorAll(".letterBox"));
-            // looping over array and finding index match of the letter position.
-            letterBoxArray.forEach((box, index) => {
-                if(letterPosition === index) {
-                    box.appendChild(correctLetter);
-                }
-            });
+            
+                // looping over array and finding index match of the letter position.
+                letterBoxArray.forEach((box, index) => {
+                    if(letterPosition === index) {
+                        box.appendChild(correctLetter);
+                    }
+                });
+            
             puzzleWordMap[letterPosition] = 0;
-            console.log(puzzleWordMap);
-            // correctAnswers.push(arr[index]);
+            
+            checkGuessLetter(selectedLetters, puzzleWordMap);
+            
         } else {
             // if the letter has an index of -1 populate incorrectAnswers
             incorrectAnswers.push(arr[index]);
         }
     });
-    console.log(correctAnswers, incorrectAnswers);
 }
 
 // Handling keypress event
